@@ -1,9 +1,31 @@
-master:
-  build: .
-  environment:
-    JAVA_OPTS: "-Djava.awt.headless=true"
-  ports:
-    - "50000:50000"
-    - "8080:8080"
-  volumes:
-    - /var/jenkins_home
+version: "3.7"
+networks:
+  jenkins:
+
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile-alpine
+      args:
+        user: cuong
+        group: cuong
+        uid: 1001
+        gid: 1001
+        http_port: 8080
+        agent_port: 50000
+        JENKINS_VERSION: 2.204.5
+        JENKINS_SHA: 94c73fa5b72e0a4eb52c5c99c08351f85a51d138f3dbaff6f64e4406353f839c
+    image: smalldragonvt/jenkins:alpine-jenkins-2.204.5
+    container_name: jenkins
+    user: cuong
+    expose:
+      - 8080
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - ${PWD}/../jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins
+    restart: always
