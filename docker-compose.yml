@@ -16,6 +16,7 @@ services:
         agent_port: 50000
         JENKINS_VERSION: 2.204.5
         JENKINS_SHA: 94c73fa5b72e0a4eb52c5c99c08351f85a51d138f3dbaff6f64e4406353f839c
+        JENKINS_HOME: /home/cuong/jenkins_home
     image: smalldragonvt/jenkins:alpine-jenkins-2.204.5
     container_name: jenkins
     user: cuong
