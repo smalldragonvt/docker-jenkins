@@ -8,16 +8,16 @@ services:
       context: .
       dockerfile: Dockerfile-alpine
       args:
-        user: cuong
-        group: cuong
-        uid: 1001
-        gid: 1001
-        http_port: 8080
-        agent_port: 50000
-        JENKINS_VERSION: 2.204.5
-        JENKINS_SHA: 94c73fa5b72e0a4eb52c5c99c08351f85a51d138f3dbaff6f64e4406353f839c
+        USER: cuong
+        GROUP: cuong
+        UID: 1000
+        GID: 1000
+        HTTP_PORT: 8080
+        AGENT_PORT: 50000
+        JENKINS_VERSION: 2.235.5
+        JENKINS_SHA: c786f7b18fd3fc1bafce85b3b9bc5d8c5f09e3a313cfd618bae8c1d920b6f70b
         JENKINS_HOME: /home/cuong/jenkins_home
-    image: smalldragonvt/jenkins:alpine-jenkins-2.204.5
+    image: smalldragonvt/jenkins:alpine-jenkins-2.235.5
     container_name: jenkins
     user: cuong
     expose:
