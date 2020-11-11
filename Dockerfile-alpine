@@ -22,8 +22,8 @@ ENV AGENT_PORT=${AGENT_PORT:-50000}
 ENV JENKINS_HOME=${JENKINS_HOME:-/var/jenkins_home}
 ENV JENKINS_SLAVE_AGENT_PORT=${AGENT_PORT:-50000}
 ENV REF=${REF:-/usr/share/jenkins/ref}
-ENV JENKINS_VERSION=${JENKINS_VERSION:-2.235.5}
-ENV JENKINS_SHA=${JENKINS_SHA:-c786f7b18fd3fc1bafce85b3b9bc5d8c5f09e3a313cfd618bae8c1d920b6f70b}
+ENV JENKINS_VERSION=${JENKINS_VERSION:-2.249.3}
+ENV JENKINS_SHA=${JENKINS_SHA:-8de8f11d5688c79967bc53a8124960926a90d623e5e9f03f1315ccf3e7c49702}
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -32,6 +32,9 @@ RUN mkdir -p $JENKINS_HOME \
   && chown ${UID}:${GID} $JENKINS_HOME \
   && addgroup -g ${GID} ${GROUP} \
   && adduser -h "${JENKINS_HOME}" -u ${UID} -G ${GROUP} -s /bin/bash -D ${USER}
+
+RUN addgroup -S docker && \
+    addgroup ${USER} docker
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
