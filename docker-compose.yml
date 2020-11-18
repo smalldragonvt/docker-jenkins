@@ -14,10 +14,10 @@ services:
         GID: 1000
         HTTP_PORT: 8080
         AGENT_PORT: 50000
-        JENKINS_VERSION: 2.235.5
-        JENKINS_SHA: c786f7b18fd3fc1bafce85b3b9bc5d8c5f09e3a313cfd618bae8c1d920b6f70b
+        JENKINS_VERSION: 2.249.3
+        JENKINS_SHA: 8de8f11d5688c79967bc53a8124960926a90d623e5e9f03f1315ccf3e7c49702
         JENKINS_HOME: /home/cuong/jenkins_home
-    image: smalldragonvt/jenkins:alpine-jenkins-2.235.5
+    image: smalldragonvt/jenkins:alpine-jenkins-2.249.3
     container_name: jenkins
     user: cuong
     expose:

@@ -19,7 +19,7 @@ ENV UID=${UID:-1000}
 ENV GID=${GID:-1000}
 ENV HTTP_PORT=${HTTP_PORT:-8080}
 ENV AGENT_PORT=${AGENT_PORT:-50000}
-ENV JENKINS_HOME=${JENKINS_HOME:-/var/jenkins_home}
+ENV JENKINS_HOME=${JENKINS_HOME:-/var/cuong/jenkins_home}
 ENV JENKINS_SLAVE_AGENT_PORT=${AGENT_PORT:-50000}
 ENV REF=${REF:-/usr/share/jenkins/ref}
 ENV JENKINS_VERSION=${JENKINS_VERSION:-2.249.3}
@@ -28,6 +28,9 @@ ENV JENKINS_SHA=${JENKINS_SHA:-8de8f11d5688c79967bc53a8124960926a90d623e5e9f03f1
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
 # ensure you use the same uid
+
+RUN echo $JENKINS_HOME
+
 RUN mkdir -p $JENKINS_HOME \
   && chown ${UID}:${GID} $JENKINS_HOME \
   && addgroup -g ${GID} ${GROUP} \
@@ -56,7 +59,6 @@ RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
-RUN chown -R ${USER} "$JENKINS_HOME" "$REF"
 
 # for main web interface:
 EXPOSE ${HTTP_PORT}
@@ -65,6 +67,10 @@ EXPOSE ${HTTP_PORT}
 EXPOSE ${AGENT_PORT}
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
+
+RUN touch $JENKINS_HOME/copy_reference_file.log
+
+RUN chown -R ${USER}:${GROUP} "$JENKINS_HOME" "$REF"
 
 USER ${USER}
 
@@ -76,3 +82,5 @@ ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup $REF/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
+
+WORKDIR $JENKINS_HOME
