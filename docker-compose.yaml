@@ -6,21 +6,22 @@ services:
   jenkins:
     build:
       context: .
-      dockerfile: Dockerfile-alpine
+      dockerfile: Dockerfile
       args:
-        USER: cuong
-        GROUP: cuong
+        USER: dev
+        GROUP: dev
         UID: 1000
         GID: 1000
         HTTP_PORT: 8080
-        AGENT_PORT: 40000
-        JENKINS_VERSION: 2.263.1
-        JENKINS_SHA: 
-        SHA-256: 0eedeb2b11a32726acb57db26e262b1923cf408e84708baf471e3b53462ed6f1
-        JENKINS_HOME: /home/cuong/jenkins_home
-    image: smalldragonvt/jenkins:alpine-jenkins-2.263.1
+        AGENT_PORT: 50000
+        JENKINS_VERSION: 2.277.1
+        JENKINS_SHA: 399741db1152ee7bbe8dc08e0972efa0b128a1b55a0f8b10c087fefeec66d151
+        JENKINS_HOME: /home/dev/jenkins_home
+        TZ: ASIA/Ho_Chi_Minh
+        DEBIAN_FRONTEND: noninteractive
+    image: hungcuongvt90/jenkins:ubuntu-jenkins-2.277.1
     container_name: jenkins
-    user: cuong
+    user: dev
     expose:
       - 8080
     environment:
