@@ -26,8 +26,8 @@ ENV AGENT_PORT=${AGENT_PORT:-50000}
 ENV JENKINS_HOME=${JENKINS_HOME:-/var/jenkins_home}
 ENV JENKINS_SLAVE_AGENT_PORT=${AGENT_PORT:-50000}
 ENV REF=${REF:-/usr/share/jenkins/ref}
-ENV JENKINS_VERSION=${JENKINS_VERSION:-2.235.5}
-ENV JENKINS_SHA=${JENKINS_SHA:-c786f7b18fd3fc1bafce85b3b9bc5d8c5f09e3a313cfd618bae8c1d920b6f70b}
+ENV JENKINS_VERSION=${JENKINS_VERSION:-2.277.2}
+ENV JENKINS_SHA=${JENKINS_SHA:-423d506cbfccf677a8f8112e170e611d65a49244b0ca87d2b134dd3ecb2e9b22}
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
