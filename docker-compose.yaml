@@ -14,12 +14,12 @@ services:
         GID: 1000
         HTTP_PORT: 8080
         AGENT_PORT: 50000
-        JENKINS_VERSION: 2.277.4
-        JENKINS_SHA: 26b278064393befa74f543d23050ca08589a6c14207cac06a0fbf6994113e7a7
+        JENKINS_VERSION: 2.289.1
+        JENKINS_SHA: 70f9cc6ff1ac59aeeb831b980709a9ddb0ee70d216ee50625a8508b9840f75f2
         JENKINS_HOME: /home/cuong/jenkins_home
         TZ: ASIA/Ho_Chi_Minh
         DEBIAN_FRONTEND: noninteractive
-    image: hungcuongvt90/jenkins:ubuntu-jenkins-2.277.4-cuong
+    image: hungcuongvt90/jenkins:ubuntu-jenkins-2.289.1-cuong
     container_name: jenkins
     user: cuong
     expose:
