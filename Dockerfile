@@ -4,7 +4,7 @@ FROM ubuntu:focal
 # Avoid JENKINS-59569 - git LFS 2.7.1 fails clone with reference repository
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git vim curl openjdk-11-jdk && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y sudo git vim curl openjdk-11-jdk && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install && rm -rf /var/lib/apt/lists/*
 
 ARG USER
 ARG GROUP
@@ -26,8 +26,8 @@ ENV AGENT_PORT=${AGENT_PORT:-50000}
 ENV JENKINS_HOME=${JENKINS_HOME:-/var/jenkins_home}
 ENV JENKINS_SLAVE_AGENT_PORT=${AGENT_PORT:-50000}
 ENV REF=${REF:-/usr/share/jenkins/ref}
-ENV JENKINS_VERSION=${JENKINS_VERSION:-2.289.1}
-ENV JENKINS_SHA=${JENKINS_SHA:-70f9cc6ff1ac59aeeb831b980709a9ddb0ee70d216ee50625a8508b9840f75f2}
+ENV JENKINS_VERSION=${JENKINS_VERSION:-2.289.2}
+ENV JENKINS_SHA=${JENKINS_SHA:-6e5d17bb373a4167318082abaef483f280493cb216718e68771180955df52310}
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -36,6 +36,8 @@ RUN mkdir -p $JENKINS_HOME \
   && chown ${UID}:${GID} $JENKINS_HOME \
   && groupadd -g ${GID} ${GROUP} \
   && useradd -d "$JENKINS_HOME" -u ${UID} -g ${GID} -m -s /bin/bash ${USER}
+
+RUN echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${USER}
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
