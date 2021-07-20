@@ -16,6 +16,7 @@ ARG JENKINS_HOME
 ARG REF
 ARG JENKINS_VERSION
 ARG JENKINS_SHA
+ARG DOCKER_GID
 
 ENV USER=${USER:-cuong}
 ENV GROUP=${GROUP:-cuong}
@@ -28,6 +29,7 @@ ENV JENKINS_SLAVE_AGENT_PORT=${AGENT_PORT:-50000}
 ENV REF=${REF:-/usr/share/jenkins/ref}
 ENV JENKINS_VERSION=${JENKINS_VERSION:-2.289.2}
 ENV JENKINS_SHA=${JENKINS_SHA:-6e5d17bb373a4167318082abaef483f280493cb216718e68771180955df52310}
+ENV DOCKER_GID=${DOCKER_GID:-115}
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -81,6 +83,9 @@ EXPOSE ${HTTP_PORT}
 
 # will be used by attached slave agents:
 EXPOSE ${AGENT_PORT}
+
+RUN sudo groupadd -g ${DOCKER_GID} docker && \
+    sudo usermod -aG docker $USER
 
 USER ${USER}
 
